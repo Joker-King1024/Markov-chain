@@ -1,3 +1,1 @@
-# Markov-chain
-
-Studying
+# Learning record
