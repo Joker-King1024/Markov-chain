@@ -26,7 +26,6 @@ int kalman_filter(double duration,double dt){
     matrix_x<<0,0;
 
     Eigen::Matrix<double,2,1> matrix_xhat=matrix_x;
-    std::cout<<matrix_xhat<<std::endl;
 
     Eigen::Matrix<double,1,1> matrix_Sz;
     matrix_Sz<<measnoise*measnoise;
@@ -54,7 +53,7 @@ int kalman_filter(double duration,double dt){
 
         Eigen::Matrix<double,1,1> matrix_y;
         matrix_y=matrix_c*matrix_x+matrix_MeasNoise;
-        std::cout<<matrix_y<<std::endl;
+
         matrix_xhat=matrix_a*matrix_xhat+matrix_b*u;
 
         Eigen::Matrix<double,1,1> matrix_Inn;
@@ -72,7 +71,7 @@ int kalman_filter(double duration,double dt){
                 matrix_s.inverse()*matrix_c*matrix_P*matrix_a.transpose()+matrix_Sw;
 
         x_measured.push_back(matrix_y(0,0));
-        x_filtered.push_back(matrix_xhat(1,0));
+        x_filtered.push_back(matrix_xhat(0,0));
     }
     for(int i=0;i<x_measured.size();i++)//size()容器中实际数据个数
     {
@@ -82,6 +81,11 @@ int kalman_filter(double duration,double dt){
     for(int i=0;i<x_filtered.size();i++)//size()容器中实际数据个数
     {
         std::cout<<x_filtered[i]<<",";
+    }
+    std::cout<<std::endl;
+    for(int i=0;i<x_filtered.size();i++)//size()容器中实际数据个数
+    {
+        std::cout<<1*i*i*dt*dt/2<<",";
     }
 
 
